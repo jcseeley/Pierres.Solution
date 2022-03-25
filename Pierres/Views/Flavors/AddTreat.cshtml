@@ -1,0 +1,26 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Pierres.Models.Flavor
+
+<h2>Add Treat</h2>
+<hr/>
+<h3>Flavor: @Html.DisplayFor(model => model.Name)</h3>
+<hr/>
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.FlavorId)
+
+  <h4>Select Treat:</h4>
+  @Html.DropDownList("TreatId")
+  <br>
+  @if (ViewBag.Error != null && ViewBag.Error == "exist")
+  {
+    <span>TREAT ALREADY ADDED!</span>
+  }
+  <br>
+  <input type="submit" value="Save" />
+}
+<hr/>
+<h5>@Html.ActionLink($"Back to {Model.Name}'s Details", "Details", new { id = Model.FlavorId })</h5>

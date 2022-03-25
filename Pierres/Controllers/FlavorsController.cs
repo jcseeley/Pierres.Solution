@@ -99,8 +99,8 @@ namespace Pierres.Controllers
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       Flavor flavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
-      ViewBag.TreatId = new SelectList(_db.Treats, "FlavorId", "Name");
-      ViewBag.PageTitle = "Add Treat Flavor!";
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
+      ViewBag.PageTitle = "Add Treat to Flavor!";
       return View(flavor);
     }
 
