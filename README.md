@@ -50,7 +50,7 @@ A user friendly web application for Pierre and his employees to catalog their pa
 
 ## Known Bugs
 
-* No known bugs at this time.
+* When trying to add a duplicate treat or flavor, the model names get removed from the page.
 
 ## License
 
