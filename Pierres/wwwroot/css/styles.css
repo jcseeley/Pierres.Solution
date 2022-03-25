@@ -1,0 +1,60 @@
+/* body {
+  background-image: url(https://images.unsplash.com/photo-1540984332767-405cdacc3eed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-color: black;
+  text-align: center;
+  font-family: 'Roboto Serif', serif;
+  font-family: 'Sansita Swashed', cursive;
+  font-family: 'Yuji Syuku', serif;
+  font-size: large;
+  color: darkslategrey;
+}
+
+.container {
+  margin-top: 60px;
+  width: 450px;
+  height: 1080px;
+}
+
+input {
+  text-align: center;
+  font-size: medium;
+  background-color: rgb(190, 190, 190);
+}
+
+a {
+  color: rgb(78, 52, 33);
+}
+
+a:hover {
+  color: midnightblue;
+}
+
+div#header {
+  position: fixed;
+  top: 10px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+.header {
+  background-color: rgb(168, 168, 168);
+  font-style: normal;
+}
+
+button {
+  background-color: rgb(204, 204, 204);
+  font-style: italic;
+}
+
+hr {
+  border: 1px solid darkslategrey;
+}
+
+#silly {
+  font-weight: bolder;
+  font-style: italic;
+} */
