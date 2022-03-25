@@ -1,0 +1,16 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Pierres.Models.Treat
+
+<h1>Add Treat</h1>
+<hr/>
+@using (Html.BeginForm())
+{
+  <h3>Treat Name:</h3>
+  @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @required="required" } })
+  <br><br>
+  <input type="submit" value="ADD"/>
+}
+<hr/>
