@@ -114,6 +114,7 @@ namespace Pierres.Controllers
       if (check != null)
       {
         ViewBag.Error = "exist";
+        ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
         return View(flavor);
       }
       else
