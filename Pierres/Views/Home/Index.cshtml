@@ -1,0 +1,47 @@
+@{
+  Layout = "_Layout";
+}
+
+<h1>Pierre's Bakery</h1>
+<hr/>
+<h3 id="pierre">Welcome Pierre!</h3>
+<br>
+
+@using Pierres.Models;
+
+<h2>Treats:</h2>
+<hr/>
+@if (@ViewBag.Treats.Count == 0)
+{
+  <h3>No Treats Available</h3>
+}
+else
+{
+  @foreach (Treat treat in @ViewBag.Treats)
+  {
+    <h4>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</h4>
+    @foreach (Taste taste in treat.JoinEntities)
+    {
+      <p>@taste.Flavor.Name @Html.ActionLink("view", "Details", "Flavors", new { id = taste.Flavor.FlavorId })</p>
+    }
+  }
+}
+<br>
+
+<h2>Flavors:</h2>
+<hr/>
+@if (@ViewBag.Flavors.Count == 0)
+{
+  <h3>No Flavors Added</h3>
+}
+else
+{
+  @foreach (Flavor flavor in @ViewBag.Flavors)
+  {
+    <h4>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</h4>
+    @foreach (Taste taste in flavor.JoinEntities)
+    {
+      <p>@taste.Treat.Name @Html.ActionLink("view", "Details", "Treats", new { id = taste.Treat.TreatId })</p>
+    }
+  }
+}
