@@ -1,0 +1,18 @@
+@{
+    Layout = "_Layout";
+}
+
+@using Pierres.Models;
+@model ApplicationUser;
+
+<h1>Account Details</h1>
+<hr/>
+<h3>@Html.Label("Username: ") @Html.DisplayFor(model => model.UserName)</h3>
+<h3>@Html.Label("Email: ") @Html.DisplayFor(model => model.Email)</h3>
+<h3>@Html.Label("First name: ") @Html.DisplayFor(model => model.FirstName)</h3>
+<h3>@Html.Label("Last name: ") @Html.DisplayFor(model => model.LastName)</h3>
+
+@using (Html.BeginForm("LogOff", "Account"))
+{
+  <input type="submit" value="Log Out"/>
+}

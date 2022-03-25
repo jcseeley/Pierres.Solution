@@ -1,0 +1,32 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Pierres.ViewModels
+
+@model RegisterViewModel
+
+<h1>Register</h1>
+<hr/>
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+  <h4>@Html.Label("Email:")</h4>
+  @Html.TextBoxFor(user=> user.Email)<br>
+
+  <h4>@Html.Label("Username:")</h4>
+  @Html.TextBoxFor(user=> user.UserName)<br>
+
+  <h4>@Html.Label("Password:")</h4>
+  @Html.PasswordFor(user=> user.Password)<br>
+
+  <h4>@Html.Label("Confirm Password:")</h4>
+  @Html.PasswordFor(user=> user.ConfirmPassword)
+
+  <h4>@Html.Label("First Name:")</h4>
+  @Html.TextBoxFor(user=> user.FirstName)
+
+  <h4>@Html.Label("Last Name:")</h4>
+  @Html.TextBoxFor(user=> user.LastName)<br><br>
+
+  <input type="submit" value="Register"/>
+}
