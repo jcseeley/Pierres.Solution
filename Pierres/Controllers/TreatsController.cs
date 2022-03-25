@@ -12,7 +12,6 @@ using System.Security.Claims;
 
 namespace Pierres.Controllers
 {
-  [Authorize]
     public class TreatsController : Controller
   {
     private readonly PierresContext _db;
