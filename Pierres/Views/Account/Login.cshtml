@@ -3,7 +3,6 @@
 }
 
 @using Pierres.ViewModels
-
 @model LoginViewModel
 
 <h1>Log In</h1>
@@ -12,9 +11,7 @@
 {
   <h3>@Html.Label("Username:")</h3>
   @Html.TextBoxFor(m => m.UserName)<br>
-
   <h3>@Html.Label("Password:")</h3>
   @Html.PasswordFor(m => m.Password)<br><br>
-
   <input type="submit" value="Log In"/>
 }

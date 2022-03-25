@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Pierres.Models;
 using Pierres.ViewModels;
 using System.Security.Claims;
@@ -12,7 +12,7 @@ namespace Pierres.Controllers
     private readonly PierresContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-
+    
     public AccountController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, PierresContext db)
     {
       _userManager = userManager;

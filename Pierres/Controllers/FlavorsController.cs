@@ -14,6 +14,7 @@ namespace Pierres.Controllers
   {
     private readonly PierresContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
+    
     public FlavorsController(UserManager<ApplicationUser> userManager, PierresContext db)
     {
       _userManager = userManager;
@@ -122,6 +123,17 @@ namespace Pierres.Controllers
         return RedirectToAction("Details", new { id = flavor.FlavorId });
       }
     }
+
+    [HttpPost]
+    public async Task<ActionResult> DeleteTreat(int joinId)
+    {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      Taste joinEntry = _db.Tastes.FirstOrDefault(entry => entry.TasteId == joinId);
+      _db.Tastes.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = joinEntry.FlavorId });
+    }
     
     public async Task<ActionResult> Delete(int id)
     {
@@ -145,17 +157,6 @@ namespace Pierres.Controllers
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
-    }
-    
-    [HttpPost]
-    public async Task<ActionResult> DeleteTreat(int joinId)
-    {
-      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      Taste joinEntry = _db.Tastes.FirstOrDefault(entry => entry.TasteId == joinId);
-      _db.Tastes.Remove(joinEntry);
-      _db.SaveChanges();
-      return RedirectToAction("Details", new { id = joinEntry.FlavorId });
     }
   }
 }

@@ -121,6 +121,17 @@ namespace Pierres.Controllers
         return RedirectToAction("Details", new { id = treat.TreatId });
       }
     }
+
+    [HttpPost]
+    public async Task<ActionResult> DeleteFlavor(int joinId)
+    {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      Taste joinEntry = _db.Tastes.FirstOrDefault(entry => entry.TasteId == joinId);
+      _db.Tastes.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = joinEntry.TreatId });
+    }
     
     public async Task<ActionResult> Delete(int id)
     {
@@ -144,17 +155,6 @@ namespace Pierres.Controllers
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
-    }
-
-    [HttpPost]
-    public async Task<ActionResult> DeleteFlavor(int joinId)
-    {
-      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      Taste joinEntry = _db.Tastes.FirstOrDefault(entry => entry.TasteId == joinId);
-      _db.Tastes.Remove(joinEntry);
-      _db.SaveChanges();
-      return RedirectToAction("Details", new { id = joinEntry.TreatId });
     }
   }
 }

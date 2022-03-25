@@ -10,11 +10,11 @@ namespace Pierres.Models
     PierresContext IDesignTimeDbContextFactory<PierresContext>.CreateDbContext(string[] args)
     {
       IConfigurationRoot configuration = new ConfigurationBuilder()
-          .SetBasePath(Directory.GetCurrentDirectory())
-          .AddJsonFile("appsettings.json")
-          .Build();
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json")
+        .Build();
 
-      var builder = new DbContextOptionsBuilder<PierresContext>();
+      DbContextOptionsBuilder<PierresContext> builder = new DbContextOptionsBuilder<PierresContext>();
 
       builder.UseMySql(configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(configuration["ConnectionStrings:DefaultConnection"]));
 
