@@ -156,7 +156,7 @@ namespace Pierres.Controllers
       Taste joinEntry = _db.Tastes.FirstOrDefault(entry => entry.TasteId == joinId);
       _db.Tastes.Remove(joinEntry);
       _db.SaveChanges();
-      return RedirectToAction("Details", new { id = joinEntry.Flavor.FlavorId });
+      return RedirectToAction("Details", new { id = joinEntry.FlavorId });
     }
   }
 }

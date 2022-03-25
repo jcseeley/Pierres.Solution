@@ -1,0 +1,21 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Pierres.Models.Flavor
+
+<h1>Add Flavor</h1>
+<hr/>
+@using (Html.BeginForm())
+{
+  <h3>Flavor Name:</h3>
+  @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @required="required" } })
+  <br>
+  @if (ViewBag.Error != null && ViewBag.Error == "exist")
+  {
+    <span style="color:red;">FLAVOR ALREADY EXISTS!</span>
+  }
+  <br>
+  <input type="submit" value="ADD"/>
+}
+<hr/>

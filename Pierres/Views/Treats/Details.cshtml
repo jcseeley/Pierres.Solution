@@ -19,7 +19,7 @@ else
     <h4>@Html.ActionLink($"{join.Flavor.Name}", "Details", "Flavors", new { id = join.Flavor.FlavorId})</h4>
     @if (User.Identity.IsAuthenticated)
     {
-      @using (Html.BeginForm("DeleteMachine", "Engineers"))
+      @using (Html.BeginForm("DeleteFlavor", "Treats"))
       {
         @Html.Hidden("joinId", @join.TasteId)
         <input type="submit" value="Remove"/><br><br>
