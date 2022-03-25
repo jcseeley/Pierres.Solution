@@ -10,12 +10,12 @@ using System.Security.Claims;
 
 namespace Pierres.Controllers
 {
-    public class TreatsController : Controller
+    public class FlavorsController : Controller
   {
     private readonly PierresContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public TreatsController(UserManager<ApplicationUser> userManager, PierresContext db)
+    public FlavorsController(UserManager<ApplicationUser> userManager, PierresContext db)
     {
       _userManager = userManager;
       _db = db;
@@ -23,90 +23,90 @@ namespace Pierres.Controllers
 
     public ActionResult Index()
     {
-      List<Treat> treats = _db.Treats.ToList();
-      ViewBag.PageTitle = "Treats!";
-      return View(treats);
+      List<Flavor> flavors = _db.Flavors.ToList();
+      ViewBag.PageTitle = "Flavors!";
+      return View(flavors);
     }
 
     public async Task<ActionResult> Create()
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      ViewBag.PageTitle = "Add Treat!";
+      ViewBag.PageTitle = "Add Flavor!";
       return View();
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Treat treat)
+    public async Task<ActionResult> Create(Flavor flavor)
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      treat.User = currentUser;
-      _db.Treats.Add(treat);
+      flavor.User = currentUser;
+      _db.Flavors.Add(flavor);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult Details(int id)
     {
-      Treat treat = _db.Treats
-        .Include(treat => treat.JoinEntities)
-        .ThenInclude(join => join.Flavor)
-        .FirstOrDefault(treat => treat.TreatId == id);
-        ViewBag.PageTitle = "Treat Details!";
-      return View(treat);
+      Flavor flavor = _db.Flavors
+        .Include(flavor => flavor.JoinEntities)
+        .ThenInclude(join => join.Treat)
+        .FirstOrDefault(flavor => flavor.FlavorId == id);
+        ViewBag.PageTitle = "Flavor Details!";
+      return View(flavor);
     }
 
     public async Task<ActionResult> Edit(int id)
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      Treat treat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
-      ViewBag.PageTitle = "Edit Treat!";
-      return View(treat);
+      Flavor flavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
+      ViewBag.PageTitle = "Edit Flavor!";
+      return View(flavor);
     }
 
     [HttpPost]
-    public async Task<ActionResult> Edit(Treat treat)
+    public async Task<ActionResult> Edit(Flavor flavor)
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      _db.Entry(treat).State = EntityState.Modified;
+      _db.Entry(flavor).State = EntityState.Modified;
       _db.SaveChanges();
-      return RedirectToAction("Details", new { id = treat.TreatId });
+      return RedirectToAction("Details", new { id = flavor.FlavorId });
     }
 
-    public async Task<ActionResult> AddFlavor(int id)
+    public async Task<ActionResult> AddTreat(int id)
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      Treat treat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
+      Flavor flavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      ViewBag.TreatId = new SelectList(_db.Treats, "FlavorId", "Name");
       ViewBag.PageTitle = "Add Treat Flavor!";
-      return View(treat);
+      return View(flavor);
     }
 
     [HttpPost]
-    public async Task<ActionResult> AddFlavor(Treat treat, int FlavorId)
+    public async Task<ActionResult> AddTreat(Flavor flavor, int TreatId)
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      if (FlavorId != 0)
+      if (TreatId != 0)
       {
-        _db.Tastes.Add(new Taste() { FlavorId = FlavorId, TreatId = treat.TreatId });
+        _db.Tastes.Add(new Taste() { TreatId = TreatId, FlavorId = flavor.FlavorId });
         _db.SaveChanges();
       }
-      return RedirectToAction("Details", new { id = treat.TreatId });
+      return RedirectToAction("Details", new { id = flavor.FlavorId });
     }
     
     public async Task<ActionResult> Delete(int id)
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      Treat treat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      ViewBag.PageTitle = "Delete Treat!";
-      return View(treat);
+      Flavor flavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      ViewBag.PageTitle = "Delete Flavor!";
+      return View(flavor);
     }
 
     [HttpPost, ActionName("Delete")]
@@ -114,9 +114,9 @@ namespace Pierres.Controllers
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      Treat treat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      _db.Treats.Remove(treat);
-      foreach (Taste taste in treat.JoinEntities)
+      Flavor flavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      _db.Flavors.Remove(flavor);
+      foreach (Taste taste in flavor.JoinEntities)
       {
         _db.Tastes.Remove(taste);
       }
@@ -125,14 +125,14 @@ namespace Pierres.Controllers
     }
     
     [HttpPost]
-    public async Task<ActionResult> DeleteFlavor(int joinId)
+    public async Task<ActionResult> DeleteTreat(int joinId)
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       Taste joinEntry = _db.Tastes.FirstOrDefault(entry => entry.TasteId == joinId);
       _db.Tastes.Remove(joinEntry);
       _db.SaveChanges();
-      return RedirectToAction("Details", new { id = joinEntry.Treat.TreatId });
+      return RedirectToAction("Details", new { id = joinEntry.Flavor.FlavorId });
     }
   }
 }
