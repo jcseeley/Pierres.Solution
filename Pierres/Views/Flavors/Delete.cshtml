@@ -2,8 +2,8 @@
   Layout = "_Layout";
 }
 
-@model Pierres.Models.Treat
-<h2>Delete Treat</h2>
+@model Pierres.Models.Flavor
+<h2>Delete Flavor</h2>
 <hr />
 <h4>Please confirm removal of "@Html.DisplayFor(model => model.Name)".</h4><br>
 
@@ -12,4 +12,4 @@
   <input type="submit" value="CONFIRM" />
 }
 <hr />
-<h4>@Html.ActionLink($"Back to {Model.Name}'s Details", "Details", new { id = Model.TreatId })</h4>
+<h4>@Html.ActionLink($"Back to {Model.Name}'s Details", "Details", new { id = Model.FlavorId })</h4>
