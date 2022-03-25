@@ -81,9 +81,18 @@ namespace Pierres.Controllers
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      _db.Entry(flavor).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Details", new { id = flavor.FlavorId });
+      Flavor check = _db.Flavors.Where(check => check.Name == flavor.Name && check.FlavorId != flavor.FlavorId).FirstOrDefault();
+      if (check != null)
+      {
+        ViewBag.Error = "exist";
+        return View(flavor);
+      }
+      else
+      {
+        _db.Entry(flavor).State = EntityState.Modified;
+        _db.SaveChanges();
+        return RedirectToAction("Details", new { id = flavor.FlavorId });
+      }
     }
 
     public async Task<ActionResult> AddTreat(int id)
@@ -101,12 +110,18 @@ namespace Pierres.Controllers
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      if (TreatId != 0)
+      Taste check = _db.Tastes.Where(check => check.Flavor.FlavorId == flavor.FlavorId && check.Treat.TreatId == TreatId).FirstOrDefault();
+      if (check != null)
+      {
+        ViewBag.Error = "exist";
+        return View(flavor);
+      }
+      else
       {
         _db.Tastes.Add(new Taste() { TreatId = TreatId, FlavorId = flavor.FlavorId });
         _db.SaveChanges();
+        return RedirectToAction("Details", new { id = flavor.FlavorId });
       }
-      return RedirectToAction("Details", new { id = flavor.FlavorId });
     }
     
     public async Task<ActionResult> Delete(int id)
