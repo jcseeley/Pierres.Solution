@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Pierres.Models.Treat
+
+<h2>Edit @Html.DisplayFor(model => model.Name)</h2>
+<hr/>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.TreatId)
+  <h3>@Html.LabelFor(model => model.Name, "Treat Name:")</h3>
+  @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @required="required" } } )<br><br>
+  <input type="submit" value="Save" />
+}
+<hr/>
+<h4>@Html.ActionLink($"Back to {Model.Name}'s Details", "Details", new { id = Model.TreatId })</h4>
