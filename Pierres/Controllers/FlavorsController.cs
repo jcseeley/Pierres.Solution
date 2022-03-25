@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Pierres.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Pierres.Controllers
 {
@@ -42,9 +42,18 @@ namespace Pierres.Controllers
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       flavor.User = currentUser;
-      _db.Flavors.Add(flavor);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+      Flavor check = _db.Flavors.Where(check => check.Name == flavor.Name).FirstOrDefault();
+      if (check != null)
+      {
+        ViewBag.Error = "exist";
+        return View();
+      }
+      else
+      {
+        _db.Flavors.Add(flavor);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+      }
     }
 
     public ActionResult Details(int id)

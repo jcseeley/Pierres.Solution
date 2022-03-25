@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Pierres.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Pierres.Controllers
 {
@@ -42,9 +42,18 @@ namespace Pierres.Controllers
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       treat.User = currentUser;
-      _db.Treats.Add(treat);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+      Treat check = _db.Treats.Where(check => check.Name == treat.Name).FirstOrDefault();
+      if (check != null)
+      {
+        ViewBag.Error = "exist";
+        return View();
+      }
+      else
+      {
+        _db.Treats.Add(treat);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+      }
     }
 
     public ActionResult Details(int id)
@@ -62,7 +71,6 @@ namespace Pierres.Controllers
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       Treat treat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
       ViewBag.PageTitle = "Edit Treat!";
       return View(treat);
     }
@@ -72,9 +80,18 @@ namespace Pierres.Controllers
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      _db.Entry(treat).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Details", new { id = treat.TreatId });
+      Treat check = _db.Treats.Where(check => check.Name == treat.Name && check.TreatId != treat.TreatId).FirstOrDefault();
+      if (check != null)
+      {
+        ViewBag.Error = "exist";
+        return View(treat);
+      }
+      else
+      {
+        _db.Entry(treat).State = EntityState.Modified;
+        _db.SaveChanges();
+        return RedirectToAction("Details", new { id = treat.TreatId });
+      }
     }
 
     public async Task<ActionResult> AddFlavor(int id)
@@ -92,12 +109,18 @@ namespace Pierres.Controllers
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      if (FlavorId != 0)
+      Taste check = _db.Tastes.Where(check => check.Treat.TreatId == treat.TreatId && check.Flavor.FlavorId == FlavorId).FirstOrDefault();
+      if (check != null)
+      {
+        ViewBag.Error = "exist";
+        return View(treat);
+      }
+      else
       {
         _db.Tastes.Add(new Taste() { FlavorId = FlavorId, TreatId = treat.TreatId });
         _db.SaveChanges();
+        return RedirectToAction("Details", new { id = treat.TreatId });
       }
-      return RedirectToAction("Details", new { id = treat.TreatId });
     }
     
     public async Task<ActionResult> Delete(int id)
@@ -123,7 +146,7 @@ namespace Pierres.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-    
+
     [HttpPost]
     public async Task<ActionResult> DeleteFlavor(int joinId)
     {

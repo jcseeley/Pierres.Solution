@@ -13,7 +13,13 @@
   @Html.HiddenFor(model => model.TreatId)
 
   <h4>Select Flavor:</h4>
-  @Html.DropDownList("FlavorId")<br><br>
+  @Html.DropDownList("FlavorId")
+  <br>
+  @if (ViewBag.Error != null && ViewBag.Error == "exist")
+  {
+    <span>FLAVOR ALREADY ADDED!</span>
+  }
+  <br>
   <input type="submit" value="Save" />
 }
 <hr/>

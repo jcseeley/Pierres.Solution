@@ -10,7 +10,12 @@
 {
   <h3>Treat Name:</h3>
   @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @required="required" } })
-  <br><br>
+  <br>
+  @if (ViewBag.Error != null && ViewBag.Error == "exist")
+  {
+    <span style="color:red;">TREAT ALREADY EXISTS!</span>
+  }
+  <br>
   <input type="submit" value="ADD"/>
 }
 <hr/>
