@@ -16,7 +16,7 @@ namespace Pierres.Controllers
     {
       ViewBag.Treats = _db.Treats.ToList();
       ViewBag.Flavors = _db.Flavors.ToList();
-      ViewBag.PageTitle = "Welcome to Pierre's Bakery!";
+      ViewBag.PageTitle = "Pierre's Bakery!";
       return View();
     }
   }
