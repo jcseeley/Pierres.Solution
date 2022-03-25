@@ -80,7 +80,7 @@ namespace Pierres.Controllers
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       Treat treat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
-      ViewBag.BeerId = new SelectList(_db.Flavors, "FlavorId", "Name");
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
       return View(treat);
     }
 
