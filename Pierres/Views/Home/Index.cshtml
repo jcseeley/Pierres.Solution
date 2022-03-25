@@ -4,8 +4,11 @@
 
 <h1>Pierre's Bakery</h1>
 <hr/>
-<h3 id="pierre">Welcome Pierre!</h3>
-<br>
+@if (User.Identity.IsAuthenticated)
+{
+  <h3 id="user">Welcome @User.Identity.Name!</h3>
+  <br>
+}
 
 @using Pierres.Models;
 
@@ -26,6 +29,7 @@ else
     }
   }
 }
+<hr/>
 <br>
 
 <h2>Flavors:</h2>

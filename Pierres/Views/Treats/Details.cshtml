@@ -1,0 +1,38 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Pierres.Models
+@using System.Security.Claims
+@model Pierres.Models.Treat
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+<hr/>
+@if (Model.JoinEntities.Count == 0)
+{
+  <h3>No Flavors Added</h3>
+}
+else
+{
+  <h3>Flavors:</h3>
+  @foreach(Taste join in Model.JoinEntities)
+  {
+    <h4>@Html.ActionLink($"{join.Flavor.Name}", "Details", "Flavors", new { id = join.Flavor.FlavorId})</h4>
+    @if (User.Identity.IsAuthenticated)
+    {
+      @using (Html.BeginForm("DeleteMachine", "Engineers"))
+      {
+        @Html.Hidden("joinId", @join.TasteId)
+        <input type="submit" value="Remove"/><br><br>
+      }
+    }
+  }
+}
+<hr/>
+
+@if (User.Identity.IsAuthenticated)
+{
+  <button>@Html.ActionLink("ADD FLAVOR", "AddFlavor", new { id = Model.TreatId })</button>
+  <button>@Html.ActionLink("EDIT", "Edit", new { id = Model.TreatId })</button>
+  <button>@Html.ActionLink("DELETE", "Delete", new { id = Model.TreatId })</button>
+}
