@@ -46,6 +46,7 @@ namespace Pierres.Controllers
       if (check != null)
       {
         ViewBag.Error = "exist";
+        ViewBag.PageTitle = "Add Flavor!";
         return View();
       }
       else
@@ -85,6 +86,7 @@ namespace Pierres.Controllers
       if (check != null)
       {
         ViewBag.Error = "exist";
+        ViewBag.PageTitle = "Edit Flavor!";
         return View(flavor);
       }
       else
@@ -100,6 +102,7 @@ namespace Pierres.Controllers
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       Flavor flavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      ViewBag.Treats = _db.Treats.ToList();
       ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
       ViewBag.PageTitle = "Add Treat to Flavor!";
       return View(flavor);
@@ -114,6 +117,8 @@ namespace Pierres.Controllers
       if (check != null)
       {
         ViewBag.Error = "exist";
+        ViewBag.PageTitle = "Add Treat to Flavor!";
+        ViewBag.Treats = _db.Treats.ToList();
         ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
         return View(flavor);
       }
@@ -155,6 +160,26 @@ namespace Pierres.Controllers
       foreach (Taste taste in flavor.JoinEntities)
       {
         _db.Tastes.Remove(taste);
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public async Task<ActionResult> DeleteAll()
+    {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      return View();
+    }
+
+    [HttpPost, ActionName("DeleteAll")]
+    public async Task<ActionResult> DeleteAllTreats()
+    {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      foreach(Flavor flavor in _db.Flavors)
+      {
+        _db.Flavors.Remove(flavor);
       }
       _db.SaveChanges();
       return RedirectToAction("Index");

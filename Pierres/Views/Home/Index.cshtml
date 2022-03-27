@@ -6,11 +6,11 @@
 <hr/>
 @if (User.Identity.IsAuthenticated)
 {
-  <h3 id="user">Bonjour @User.Identity.Name!</h3>
+  <h2 id="user">Bonjour @User.Identity.Name!</h2>
 }
 else
 {
-  <h3>Bonjour!</h3>
+  <h2>Bonjour!</h2>
 }
 <br>
 
@@ -26,13 +26,16 @@ else
 {
   @foreach (Treat treat in @ViewBag.Treats)
   {
-    <h4>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</h4>
-    <p>
-    @foreach (Taste taste in treat.JoinEntities)
+    <h3>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</h3>
+    if (treat.JoinEntities.Count > 0)
     {
-      <span>-@Html.ActionLink(taste.Flavor.Name, "Details", "Flavors", new { id = taste.Flavor.FlavorId })</span>
+      <p>Flavors: 
+      @foreach (Taste taste in treat.JoinEntities)
+      {
+        <span>-@Html.ActionLink(taste.Flavor.Name, "Details", "Flavors", new { id = taste.Flavor.FlavorId })</span>
+      }
+      </p>
     }
-    </p>
   }
 }
 <hr/>
@@ -48,12 +51,16 @@ else
 {
   @foreach (Flavor flavor in @ViewBag.Flavors)
   {
-    <h4>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</h4>
-    <p>
-    @foreach (Taste taste in flavor.JoinEntities)
+    <h3>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</h3>
+    if (flavor.JoinEntities.Count > 0)
     {
-      <span>-@Html.ActionLink(taste.Treat.Name, "Details", "Treats", new { id = taste.Treat.TreatId })</span>
+      <p>Treats: 
+      @foreach (Taste taste in flavor.JoinEntities)
+      {
+        <span>-@Html.ActionLink(taste.Treat.Name, "Details", "Treats", new { id = taste.Treat.TreatId })</span>
+      }
+      </p>
     }
-    </p>
   }
 }
+<hr/>

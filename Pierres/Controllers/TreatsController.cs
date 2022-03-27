@@ -45,6 +45,7 @@ namespace Pierres.Controllers
       if (check != null)
       {
         ViewBag.Error = "exist";
+        ViewBag.PageTitle = "Add Treat!";
         return View();
       }
       else
@@ -83,6 +84,7 @@ namespace Pierres.Controllers
       if (check != null)
       {
         ViewBag.Error = "exist";
+        ViewBag.PageTitle = "Edit Treat!";
         return View(treat);
       }
       else
@@ -98,6 +100,7 @@ namespace Pierres.Controllers
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       Treat treat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
+      ViewBag.Flavors = _db.Flavors.ToList();
       ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
       ViewBag.PageTitle = "Add Treat Flavor!";
       return View(treat);
@@ -112,6 +115,8 @@ namespace Pierres.Controllers
       if (check != null)
       {
         ViewBag.Error = "exist";
+        ViewBag.PageTitle = "Add Treat Flavor!";
+        ViewBag.Flavors = _db.Flavors.ToList();
         ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
         return View(treat);
       }
@@ -153,6 +158,26 @@ namespace Pierres.Controllers
       foreach (Taste taste in treat.JoinEntities)
       {
         _db.Tastes.Remove(taste);
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public async Task<ActionResult> DeleteAll()
+    {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      return View();
+    }
+
+    [HttpPost, ActionName("DeleteAll")]
+    public async Task<ActionResult> DeleteAllTreats()
+    {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      foreach(Treat treat in _db.Treats)
+      {
+        _db.Treats.Remove(treat);
       }
       _db.SaveChanges();
       return RedirectToAction("Index");

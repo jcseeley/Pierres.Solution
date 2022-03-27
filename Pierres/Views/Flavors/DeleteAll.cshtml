@@ -1,0 +1,13 @@
+@{
+  Layout = "_Layout";
+}
+
+<h2>Delete All Flavors</h2>
+<hr/>
+<h4>Please confirm removal of all flavors.</h4><br>
+
+@using (Html.BeginForm("DeleteAll", "Flavors"))
+{
+  <button class="btn btn-danger" type="submit">DELETE ALL</button>
+}
+<hr/>

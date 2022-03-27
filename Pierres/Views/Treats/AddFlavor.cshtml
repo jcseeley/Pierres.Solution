@@ -6,19 +6,26 @@
 
 <h2>Add Flavor</h2>
 <hr/>
-@using (Html.BeginForm())
+@if (ViewBag.Flavors.Count == 0)
 {
-  @Html.HiddenFor(model => model.TreatId)
-
-  <h4>Select Flavor:</h4>
-  @Html.DropDownList("FlavorId")
-  <br>
-  @if (ViewBag.Error != null && ViewBag.Error == "exist")
+  <h3>No Flavors Available</h3>
+}
+else
+{
+  @using (Html.BeginForm())
   {
-    <span style="color:red;">FLAVOR ALREADY ADDED!</span>
+    @Html.HiddenFor(model => model.TreatId)
+
+    <h4>Select Flavor:</h4>
+    @Html.DropDownList("FlavorId")
+    <br>
+    @if (ViewBag.Error != null && ViewBag.Error == "exist")
+    {
+      <span style="color:red;">FLAVOR ALREADY ADDED!</span>
+    }
+    <br>
+    <input type="submit" value="ADD"/>
   }
-  <br>
-  <input type="submit" value="Save" />
 }
 <hr/>
-<h5>@Html.ActionLink($"Back to Details", "Details", new { id = Model.TreatId })</h5>
+<h5>@Html.ActionLink("Back to Details", "Details", new { id = Model.TreatId })</h5>

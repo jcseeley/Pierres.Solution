@@ -5,7 +5,7 @@
 @using Pierres.Models
 @model Pierres.Models.Treat
 
-<h2>@Html.DisplayFor(model => model.Name)</h2>
+<h2>Treat: @Html.DisplayFor(model => model.Name)</h2>
 <hr/>
 @if (Model.JoinEntities.Count == 0)
 {
@@ -14,16 +14,22 @@
 else
 {
   <h3>Flavors:</h3>
-  @foreach(Taste join in Model.JoinEntities)
+  @if (User.Identity.IsAuthenticated)
   {
-    <h4>@Html.ActionLink($"{join.Flavor.Name}", "Details", "Flavors", new { id = join.Flavor.FlavorId})</h4>
-    @if (User.Identity.IsAuthenticated)
+    @foreach(Taste join in Model.JoinEntities)
     {
       @using (Html.BeginForm("DeleteFlavor", "Treats"))
       {
         @Html.Hidden("joinId", @join.TasteId)
-        <input type="submit" value="Remove"/><br><br>
+        <h4>@Html.ActionLink($"{join.Flavor.Name}", "Details", "Flavors", new { id = join.Flavor.FlavorId })<button style="color:red;" type="submit" class="btn btn-link">Remove</button></h4>
       }
+    }
+  }
+  else
+  {
+    @foreach(Taste join in Model.JoinEntities)
+    {
+      <h4>@Html.ActionLink($"{join.Flavor.Name}", "Details", "Flavors", new { id = join.Flavor.FlavorId })</h4>
     }
   }
 }
@@ -31,7 +37,7 @@ else
 
 @if (User.Identity.IsAuthenticated)
 {
-  <button>@Html.ActionLink("ADD FLAVOR", "AddFlavor", new { id = Model.TreatId })</button>
-  <button>@Html.ActionLink("EDIT", "Edit", new { id = Model.TreatId })</button>
-  <button>@Html.ActionLink("DELETE", "Delete", new { id = Model.TreatId })</button>
+  <button class="btn btn-success btn-sm">@Html.ActionLink("ADD FLAVOR", "AddFlavor", new { id = Model.TreatId })</button>
+  <button class="btn btn-secondary btn-sm">@Html.ActionLink("EDIT", "Edit", new { id = Model.TreatId })</button>
+  <button class="btn btn-danger btn-sm">@Html.ActionLink("DELETE", "Delete", new { id = Model.TreatId })</button><br><br>
 }

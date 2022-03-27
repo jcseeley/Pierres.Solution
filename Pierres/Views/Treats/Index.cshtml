@@ -22,5 +22,6 @@ else
 <hr/>
 @if (User.Identity.IsAuthenticated)
 {
-  <button>@Html.ActionLink("ADD TREAT", "Create")</button>
+  <button class="btn btn-success">@Html.ActionLink("ADD TREAT", "Create")</button>
+  <button class="btn btn-danger">@Html.ActionLink("DELETE ALL", "DeleteAll")</button>
 }

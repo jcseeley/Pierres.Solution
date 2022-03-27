@@ -1,6 +1,5 @@
-/* body {
-  background-image: url(https://images.unsplash.com/photo-1540984332767-405cdacc3eed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80);
-  background-size: cover;
+ body {
+  background-image: url(https://images.unsplash.com/photo-1517433367423-c7e5b0f35086?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1001&q=80);
   background-repeat: no-repeat;
   background-position: top;
   background-color: black;
@@ -9,50 +8,45 @@
   font-family: 'Sansita Swashed', cursive;
   font-family: 'Yuji Syuku', serif;
   font-size: large;
-  color: darkslategrey;
-} */
+  color: burlywood;
+} 
 
 .container {
-  margin-top: 60px;
-  /* width: 450px;
-  height: 1080px; */
+  margin-top: 360px;
+  max-width: 525px;
 }
 
-/* input {
+input {
   text-align: center;
-  font-size: medium;
-  background-color: rgb(190, 190, 190);
-} */
+} 
 
-/* a {
-  color: rgb(78, 52, 33);
+a {
+  color: blanchedalmond;
 }
 
 a:hover {
-  color: midnightblue;
-} */
+  color: chocolate;
+}
 
 div#header {
   position: fixed;
-  top: 10px;
+  top: 300px;
   left: 0px;
   width: 100%;
   text-align: center;
 }
 
-/* .header {
-  background-color: rgb(168, 168, 168);
-  font-style: normal;
-} */
+.header {
+  background-color: black;
+}
 
-/* button {
-  background-color: rgb(204, 204, 204);
+button {
   font-style: italic;
-} */
+}
 
-/* hr {
-  border: 1px solid darkslategrey;
-} */
+hr {
+  border: 1px solid blanchedalmond;
+}
 
 #user {
   font-weight: bolder;

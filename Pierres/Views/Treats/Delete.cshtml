@@ -4,12 +4,11 @@
 
 @model Pierres.Models.Treat
 <h2>Delete Treat</h2>
-<hr />
-<h4>Please confirm removal of "@Html.DisplayFor(model => model.Name)".</h4><br>
+<hr/>
+<h4>Please confirm removal of:<br> "@Html.DisplayFor(model => model.Name)"</h4><br>
 
 @using (Html.BeginForm())
 {
-  <input type="submit" value="CONFIRM" />
+  <input type="submit" value="CONFIRM"/>
 }
-<hr />
-<h4>@Html.ActionLink($"Back to {Model.Name}'s Details", "Details", new { id = Model.TreatId })</h4>
+<hr/>
