@@ -4,7 +4,7 @@
 
 @model Pierres.Models.Flavor
 
-<h2>Edit @Html.DisplayFor(model => model.Name)</h2>
+<h2>Edit Flavor</h2>
 <hr/>
 
 @using (Html.BeginForm())
@@ -21,4 +21,4 @@
   <input type="submit" value="Save" />
 }
 <hr/>
-<h4>@Html.ActionLink($"Back to {Model.Name}'s Details", "Details", new { id = Model.FlavorId })</h4>
+<h4>@Html.ActionLink($"Back to Details", "Details", new { id = Model.FlavorId })</h4>

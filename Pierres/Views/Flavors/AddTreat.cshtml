@@ -6,8 +6,7 @@
 
 <h2>Add Treat</h2>
 <hr/>
-<h3>Flavor: @Html.DisplayFor(model => model.Name)</h3>
-<hr/>
+
 @using (Html.BeginForm())
 {
   @Html.HiddenFor(model => model.FlavorId)
@@ -23,4 +22,4 @@
   <input type="submit" value="Save" />
 }
 <hr/>
-<h5>@Html.ActionLink($"Back to {Model.Name}'s Details", "Details", new { id = Model.FlavorId })</h5>
+<h5>@Html.ActionLink($"Back to Details", "Details", new { id = Model.FlavorId })</h5>
