@@ -62,7 +62,7 @@ namespace Pierres.Controllers
         .Include(treat => treat.JoinEntities)
         .ThenInclude(join => join.Flavor)
         .FirstOrDefault(treat => treat.TreatId == id);
-        ViewBag.PageTitle = "Treat Details!";
+      ViewBag.PageTitle = "Treat Details!";
       return View(treat);
     }
 

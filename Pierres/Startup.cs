@@ -13,9 +13,9 @@ namespace Pierres
   {
     public Startup(IWebHostEnvironment env)
     {
-      var builder = new ConfigurationBuilder()
-          .SetBasePath(env.ContentRootPath)
-          .AddJsonFile("appsettings.json");
+      IConfigurationBuilder builder = new ConfigurationBuilder()
+        .SetBasePath(env.ContentRootPath)
+        .AddJsonFile("appsettings.json");
       Configuration = builder.Build();
     }
 
@@ -25,8 +25,8 @@ namespace Pierres
     {
       services.AddMvc();
       services.AddEntityFrameworkMySql()
-        .AddDbContext<PierresContext>(options => options
-        .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
+              .AddDbContext<PierresContext>(options => options
+              .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
       
       services.AddIdentity<ApplicationUser, IdentityRole>()
               .AddEntityFrameworkStores<PierresContext>()
