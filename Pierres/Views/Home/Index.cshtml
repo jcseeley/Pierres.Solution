@@ -27,10 +27,12 @@ else
   @foreach (Treat treat in @ViewBag.Treats)
   {
     <h4>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</h4>
+    <p>
     @foreach (Taste taste in treat.JoinEntities)
     {
-      <p>@taste.Flavor.Name @Html.ActionLink("view", "Details", "Flavors", new { id = taste.Flavor.FlavorId })</p>
+      <span>-@Html.ActionLink(taste.Flavor.Name, "Details", "Flavors", new { id = taste.Flavor.FlavorId })</span>
     }
+    </p>
   }
 }
 <hr/>
@@ -47,9 +49,11 @@ else
   @foreach (Flavor flavor in @ViewBag.Flavors)
   {
     <h4>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</h4>
+    <p>
     @foreach (Taste taste in flavor.JoinEntities)
     {
-      <p>@taste.Treat.Name @Html.ActionLink("view", "Details", "Treats", new { id = taste.Treat.TreatId })</p>
+      <span>-@Html.ActionLink(taste.Treat.Name, "Details", "Treats", new { id = taste.Treat.TreatId })</span>
     }
+    </p>
   }
 }
