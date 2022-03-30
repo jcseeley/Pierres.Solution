@@ -10,6 +10,7 @@
 * ASP.NET Core MVC
 * Entity Core
 * EF Core Migrations
+* Identity
 * SQL
 * MySQLWorkbench
 * Razor
@@ -19,7 +20,7 @@
 
 ## Description
 
-A user friendly web application for Pierre and his employees to catalog their pastries and flavors. Follow the provided links to add, edit or remove pastries and their flavors. Navigate to an individual pastry or flavor page to create a new taste relationship.
+A user friendly web application for Pierre and his employees to catalog their pastries and flavors. Create an account, log in, then follow the provided links to add, edit or remove pastries and flavors. Navigate to an individual pastry or flavor page to create a new taste relationship.
 
 ## Setup/Installation Requirements
 
