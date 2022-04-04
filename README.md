@@ -2,7 +2,8 @@
 
 #### By Jase Seeley
 
-#### A web application to manage your pastries and their corresponding flavors.
+#### Epicodus Week #12 Independent Code Review: Authentication with Identity.   
+* A web application to manage your pastries and their corresponding flavors.
 
 ## Technologies Used
 * C#
