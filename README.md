@@ -5,6 +5,8 @@
 #### Epicodus Week #12 Independent Code Review: Authentication with Identity.   
 * A web application to manage your pastries and their corresponding flavors.
 
+![Pierre's Preview](./pierre.png)
+
 ## Technologies Used
 * C#
 * .NET
